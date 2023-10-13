@@ -80,6 +80,11 @@ class Facility extends AbstractEntity
      */
 
     /**
+     * @var bool
+     */
+    protected $allowAttachment = false;
+
+    /**
      * @var int
      */
     protected $qrCodeSize = 0;
@@ -237,6 +242,22 @@ class Facility extends AbstractEntity
     public function setReservationMailHtml(string $reservationMailHtml): void
     {
         $this->reservationMailHtml = $reservationMailHtml;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getAllowAttachment(): bool
+    {
+        return $this->allowAttachment;
+    }
+
+    /**
+     * @param bool $allowAttachment
+     */
+    public function setAllowAttachment(bool $allowAttachment)
+    {
+        $this->allowAttachment = $allowAttachment;
     }
 
     public function getQrCodeSize(): int

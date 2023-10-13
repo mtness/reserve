@@ -55,6 +55,9 @@
 			<trans-unit id="tx_reserve_domain_model_facility.reply_to_email">
 				<target>Antwortadresse E-Mail (optional)</target>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.allow_attachment">
+				<target>QR codes als E-Mail-Anhang erlauben</target>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_facility.div.qr_code">
 				<target>QR Code Einstellungen</target>
 			</trans-unit>

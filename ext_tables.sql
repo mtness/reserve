@@ -14,6 +14,7 @@ CREATE TABLE tx_reserve_domain_model_facility
 	confirmation_mail_html    text,
 	reservation_mail_subject  tinytext,
 	reservation_mail_html     text,
+	allow_attachment          tinyint(4) DEFAULT '0' NOT NULL,
 	qr_code_size              int(11) unsigned DEFAULT '350' NOT NULL,
 	qr_code_label_size        int(11) unsigned DEFAULT '16' NOT NULL,
 	qr_code_logo              int(11) unsigned DEFAULT '0' NOT NULL,

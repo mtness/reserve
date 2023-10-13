@@ -158,9 +158,11 @@ class CheckoutService
                 ]
             ),
             function (array $data, string $subject, string $bodyHtml, MailMessage $mailMessage) {
-                foreach ($data['order']->getReservations() as $reservation) {
-                    $qrCode = QrCodeUtility::generateQrCode($reservation);
-                    $mailMessage->attach($qrCode->getString(), $reservation->getCode(), $qrCode->getMimeType());
+                if( $data['order']->getBookedPeriod()->getFacility()->getAllowAttachment() === true ) {
+                    foreach ($data['order']->getReservations() as $reservation) {
+                        $qrCode = QrCodeUtility::generateQrCode($reservation);
+                        $mailMessage->attach($qrCode->getString(), $reservation->getCode(), $qrCode->getMimeType());
+                    }
                 }
             }
         );
