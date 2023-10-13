@@ -88,6 +88,9 @@
 			<trans-unit id="tx_reserve_domain_model_period">
 				<source>Period</source>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_period.title">
+				<source>Event Title</source>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_period.date">
 				<source>Date</source>
 			</trans-unit>

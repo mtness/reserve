@@ -88,6 +88,9 @@
 			<trans-unit id="tx_reserve_domain_model_period">
 				<target>Zeitblock</target>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_period.title">
+				<target>Titel der Veranstaltung</target>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_period.date">
 				<target>Datum</target>
 			</trans-unit>
