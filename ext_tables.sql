@@ -56,6 +56,7 @@ CREATE TABLE tx_reserve_domain_model_order
 	city            tinytext,
 	organization    tinytext,
 	remarks         tinytext,
+	consent         tinyint(4) DEFAULT '0' NOT NULL,
 	reservations    int(11) DEFAULT '0' NOT NULL,
 );
 

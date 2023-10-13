@@ -81,6 +81,11 @@ class Order extends AbstractEntity
     protected $remarks = '';
 
     /**
+     * @var bool
+     */
+    protected $consent = false;
+
+    /**
      * @var ObjectStorage<Participant>
      *
      * @Extbase\ORM\Transient
@@ -227,6 +232,22 @@ class Order extends AbstractEntity
     public function setRemarks(string $remarks): void
     {
         $this->remarks = $remarks;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasConsent(): bool
+    {
+        return $this->consent;
+    }
+
+    /**
+     * @param bool $consent
+     */
+    public function setConsent(bool $consent)
+    {
+        $this->consent = $consent;
     }
 
     /**

@@ -145,6 +145,9 @@
 			<trans-unit id="tx_reserve_domain_model_order.remarks">
 				<target>Bemerkungen</target>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.consent">
+				<target>DSGVO-Einverständniserklärung erteilt</target>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_order.reservations">
 				<target>Reservierungscodes</target>
 			</trans-unit>

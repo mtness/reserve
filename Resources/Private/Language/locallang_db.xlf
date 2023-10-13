@@ -145,6 +145,9 @@
 			<trans-unit id="tx_reserve_domain_model_order.remarks">
 				<source>Remarks</source>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.consent">
+				<target>GDPR Consent given</target>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_order.reservations">
 				<source>Reservation codes</source>
 			</trans-unit>
