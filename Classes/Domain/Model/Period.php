@@ -37,6 +37,11 @@ class Period extends AbstractEntity
     protected $bookingEnd;
 
     /**
+     * @var string
+     */
+    protected $title = '';
+
+    /**
      * @var \DateTime
      */
     protected $date;
@@ -127,6 +132,22 @@ class Period extends AbstractEntity
     public function setBookingEnd(\DateTime $bookingEnd): void
     {
         $this->bookingEnd = $bookingEnd;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle(string $title)
+    {
+        $this->title = $title;
     }
 
     public function getDate(): \DateTime

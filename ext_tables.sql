@@ -28,6 +28,7 @@ CREATE TABLE tx_reserve_domain_model_facility
 CREATE TABLE tx_reserve_domain_model_period
 (
 	facility                   int(11) DEFAULT '0' NOT NULL,
+	title                      tinytext,
 	date                       int(11) DEFAULT '0' NOT NULL,
 	begin                      int(11) DEFAULT '0' NOT NULL,
 	end                        int(11) DEFAULT '0' NOT NULL,

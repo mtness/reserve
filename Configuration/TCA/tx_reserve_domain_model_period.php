@@ -30,7 +30,7 @@ return [
     ],
     'types' => [
         '1' => [
-            'showitem' => 'facility,--palette--;;date,--palette--;;max_participants,--palette--;;booking_restrictions,orders,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language',
+            'showitem' => 'facility,title,--palette--;;date,--palette--;;max_participants,--palette--;;booking_restrictions,orders,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language',
         ],
     ],
     'palettes' => [
@@ -115,6 +115,15 @@ return [
                 'minitems' => 1,
                 'size' => 1,
                 'default' => 0,
+            ],
+        ],
+        'title' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period.title',
+            'config' => [
+                'type' => 'input',
+                'size' => 50,
+                'max' => 255,
+                'eval' => 'trim'
             ],
         ],
         'booking_begin' => [
