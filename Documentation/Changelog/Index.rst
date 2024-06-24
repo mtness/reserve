@@ -7,6 +7,21 @@
 Changelog
 =========
 
+Version 3.0.1
+=============
+
+*   [BUGFIX] HTML Response not set properly on controller
+*   [BUGFIX] StandAloneView initialization issue fixed
+*   [BUGFIX] Replaced deprecated function `strftime`
+*   [BUGFIX] Reserve management module broken because of relative path 'typo3conf' usage in javascript
+
+Version 3.0.0
+=============
+
+*   Add TYPO3 12 compatibility
+*   Remove TYPO3 11 compatibility
+*   Remove TYPO3 10 compatibility
+
 Version 2.1.0
 =============
 

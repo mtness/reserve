@@ -16,22 +16,17 @@ use JWeiland\Reserve\Domain\Model\Reservation;
 use JWeiland\Reserve\Domain\Repository\PeriodRepository;
 use JWeiland\Reserve\Domain\Repository\ReservationRepository;
 use JWeiland\Reserve\Service\DataTablesService;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\JsonView;
-use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class ManagementController extends ActionController
 {
-    /**
-     * @var PeriodRepository
-     */
-    private $periodRepository;
-    /**
-     * @var ReservationRepository
-     */
-    private $reservationRepository;
+    private PeriodRepository $periodRepository;
+
+    private ReservationRepository $reservationRepository;
 
     public function injectPeriodRepository(PeriodRepository $periodRepository): void
     {
@@ -43,7 +38,7 @@ class ManagementController extends ActionController
         $this->reservationRepository = $reservationRepository;
     }
 
-    protected function initializeView(ViewInterface $view): void
+    protected function initializeView($view): void
     {
         $view->assign('jsConf', [
             'datatables' => GeneralUtility::makeInstance(DataTablesService::class)->getConfiguration(),
@@ -61,7 +56,7 @@ class ManagementController extends ActionController
         ]);
     }
 
-    public function overviewAction(): void
+    public function overviewAction(): ResponseInterface
     {
         $this->view->assign(
             'periods',
@@ -69,19 +64,25 @@ class ManagementController extends ActionController
                 [(int)$this->settings['facility']]
             )
         );
+
+        return $this->htmlResponse();
     }
 
-    public function scannerAction(Period $period): void
+    public function scannerAction(Period $period): ResponseInterface
     {
         $this->view->assign('period', $period);
+
+        return $this->htmlResponse();
     }
 
-    public function periodAction(Period $period): void
+    public function periodAction(Period $period): ResponseInterface
     {
         $this->view->assign('period', $period);
+
+        return $this->htmlResponse();
     }
 
-    public function periodsOnSameDayAction(Period $period): void
+    public function periodsOnSameDayAction(Period $period): ResponseInterface
     {
         $this->view->assign(
             'periods',
@@ -90,13 +91,13 @@ class ManagementController extends ActionController
                 (int)$this->settings['facility']
             )
         );
+
+        return $this->htmlResponse();
     }
 
-    public function scanAction(Reservation $reservation, bool $entireOrder = false): string
+    public function scanAction(Reservation $reservation, bool $entireOrder = false): ResponseInterface
     {
-        $view = GeneralUtility::makeInstance(JsonView::class);
-
-        $view->setControllerContext($this->controllerContext);
+        $view = $this->getJsonView();
         $view->setVariablesToRender(['status']);
 
         $error = 0;
@@ -138,6 +139,11 @@ class ManagementController extends ActionController
             ]
         );
 
-        return $view->render();
+        return $this->jsonResponse($view->render());
+    }
+
+    protected function getJsonView(): JsonView
+    {
+        return GeneralUtility::makeInstance(JsonView::class);
     }
 }
