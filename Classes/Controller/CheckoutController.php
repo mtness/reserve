@@ -27,6 +27,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use WebsiteMensch\FormSpamshield\Provider\ValidationResultProvider;
 
 /**
  * Controller to list and order reservable periods of a selected facility
@@ -113,6 +114,18 @@ class CheckoutController extends ActionController
         $this->view->assign('order', $order);
 
         return $this->htmlResponse();
+    }
+
+    public function initializeCreateAction()
+    {
+        if ($this->request->hasArgument('order') && $this->request->getArgument('order')['spamShield'] ?? false) {
+            ValidationResultProvider::rememberValidation('' . $this->request->getArgument('order')['spamShield']);
+            $errorMessages = [0 => []];
+
+            ValidationResultProvider::rememberErrorMessages($errorMessages);
+        } else {
+            ValidationResultProvider::rememberValidation('');
+        }
     }
 
     /**

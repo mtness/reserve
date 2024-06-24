@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Domain\Model;
 
 use TYPO3\CMS\Extbase\Annotation as Extbase;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -43,6 +44,11 @@ class Order extends AbstractEntity
     protected string $organization = '';
 
     protected string $remarks = '';
+
+    /**
+     * @Validate("\WebsiteMensch\FormSpamshield\Mvc\Validation\SecureCheckValidator")
+     */
+    protected string $spamShield = ' ';
 
     /**
      * @var bool
@@ -311,5 +317,15 @@ class Order extends AbstractEntity
     public function shouldBlockFurtherOrdersForFacility(): bool
     {
         return true;
+    }
+
+    public function getSpamShield(): string
+    {
+        return $this->spamShield;
+    }
+
+    public function setSpamShield(string $spamShield): void
+    {
+        $this->spamShield = $spamShield;
     }
 }

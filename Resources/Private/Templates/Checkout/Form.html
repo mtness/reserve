@@ -134,9 +134,13 @@
             </f:else>
         </f:if>
 
+        <f:form.hidden property="spamShield" id="security-check-input" class="security-check-input"/>
+
         <div>
             <f:form.submit class="powermail_submit" value="{f:translate(key: 'form.order.submit')}"/>
         </div>
     </f:form>
+
+    <f:asset.script identifier="form-security-check-js" src="EXT:wsm_form_spamshield/Resources/Public/JavaScript/Dist/form-security-check.js" />
 </f:section>
 </html>
