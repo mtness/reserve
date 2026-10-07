@@ -23,5 +23,5 @@ reserve_scan {
     }
   }
   typeNum = 1589460150
-  10 < tt_content.list.20.reserve_management
+  10 < tt_content.reserve_management.20
 }

@@ -19,6 +19,8 @@ class PageRendererHook
 {
     public const MODAL_SESSION_KEY = 'tx_reserve_modal';
 
+    public const MODAL_JAVASCRIPT_MODULE = '@jweiland/reserve/backend/AskForMailAfterEditModule.js';
+
     /**
      * Check the setting tx_reserve_modal (self::MODAL_UC_KEY) and add all necessary data
      * using the information from current BE_USER. Then remove the configuration when the
@@ -31,6 +33,10 @@ class PageRendererHook
             && $this->getBackendUserAuthentication()->user
             && $configuration = $this->getBackendUserAuthentication()->getSessionData(self::MODAL_SESSION_KEY)
         ) {
+            foreach ($configuration['javaScriptModules'] ?? [] as $javaScriptModule) {
+                $pageRenderer->loadJavaScriptModule($javaScriptModule);
+            }
+
             foreach ($configuration['inlineSettings'] as $namespace => $array) {
                 $pageRenderer->addInlineSettingArray($namespace, $array);
             }

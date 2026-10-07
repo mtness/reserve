@@ -6,7 +6,7 @@ on:
 
 jobs:
   testing:
-    name: Testing
+    name: Testing (TYPO3 ${{ matrix.typo3 }}, PHP ${{ matrix.php }})
 
     runs-on: ubuntu-latest
 
@@ -16,9 +16,18 @@ jobs:
       fail-fast: false
 
       matrix:
+        typo3:
+          - '13.4'
+          - '14.3'
         php:
+          - '8.2'
           - '8.3'
           - '8.4'
+          - '8.5'
+        exclude:
+          # TYPO3 13.4 does not support PHP 8.5
+          - typo3: '13.4'
+            php: '8.5'
 
     steps:
       - name: 'Checkout'
@@ -28,7 +37,7 @@ jobs:
         run: Build/Scripts/runTests.sh -b podman -p ${{ matrix.php }} -s lint
 
       - name: 'Install testing system'
-        run: Build/Scripts/runTests.sh -b podman -p ${{ matrix.php }} -s composerUpdate
+        run: Build/Scripts/runTests.sh -b podman -p ${{ matrix.php }} -t ${{ matrix.typo3 }} -s composerUpdate
 
       - name: 'Composer validate'
         run: Build/Scripts/runTests.sh -b podman -p ${{ matrix.php }} -s composerValidate
@@ -42,11 +51,11 @@ jobs:
       - name: 'Execute unit tests'
         run: Build/Scripts/runTests.sh -b podman -p ${{ matrix.php }} -s unit
 
-      - name: 'Execute functional tests'
+      - name: 'Execute functional tests (MySQL)'
         run: Build/Scripts/runTests.sh -b podman -p ${{ matrix.php }} -d mysql -s functional
 
-      - name: 'Execute functional tests'
+      - name: 'Execute functional tests (MariaDB)'
         run: Build/Scripts/runTests.sh -b podman -p ${{ matrix.php }} -d mariadb -s functional
 
-      - name: 'Execute functional tests'
+      - name: 'Execute functional tests (PostgreSQL)'
         run: Build/Scripts/runTests.sh -b podman -p ${{ matrix.php }} -d postgres -s functional

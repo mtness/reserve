@@ -27,7 +27,7 @@ call_user_func(static function () {
                     'foreign_table' => 'tx_reserve_domain_model_facility',
                     'foreign_table_where' => 'AND 1=1 ORDER BY tx_reserve_domain_model_facility.name ASC',
                     'items' => [
-                        ['', '0'],
+                        ['label' => '', 'value' => 0],
                     ],
                     'minitems' => 0,
                     'maxitems' => 1,

@@ -46,16 +46,14 @@ class Order extends AbstractEntity
 
     /**
      * @var ObjectStorage<Participant>
-     *
-     * @Extbase\ORM\Transient
      */
+    #[Extbase\ORM\Transient]
     protected ObjectStorage $participants;
 
     /**
      * @var ObjectStorage<Reservation>
-     *
-     * @Extbase\ORM\Cascade("remove")
      */
+    #[Extbase\ORM\Cascade(['value' => 'remove'])]
     protected ObjectStorage $reservations;
 
     public function __construct()

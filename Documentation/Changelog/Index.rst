@@ -7,6 +7,25 @@
 Changelog
 =========
 
+Version 4.4.0
+=============
+
+*   [FEATURE] Add compatibility for TYPO3 14.3 LTS, TYPO3 13.4 LTS is still supported
+*   [!!!][TASK] FluidService and CancellationService do not use StandaloneView anymore. As the class was removed
+    with TYPO3 14, FluidService::configureStandaloneViewForMailing() and CancellationService::getStandaloneView()
+    have been removed. Use FluidService::createViewForMailing() or FluidService::renderMailTemplate() instead.
+*   [!!!][TASK] MailService does now expect MailerInterface in its constructor, because MailMessage->send() was
+    removed with TYPO3 14
+*   [TASK] Replace Extbase annotations in domain models with PHP attributes
+*   [TASK] Add searchable option to TCA fields, as ctrl.searchFields was removed with TYPO3 14
+*   [TASK] Register FlexForms of plugins directly in registerPlugin() for TYPO3 14
+*   [TASK] Do not autowire FlexFormService in plugin preview. It was merged into FlexFormTools with TYPO3 14
+*   [TASK] Replace deprecated FormEngine additionalJavaScriptPost in QR code preview with a JavaScript module
+*   [TASK] Use items with label and value in TCA of events2 location
+*   [BUGFIX] Ask-for-mail modal in backend was never loaded. It is now a JavaScript ES module
+*   [BUGFIX] Use tt_content.reserve_management.20 instead of tt_content.list.20.reserve_management in scanner TypoScript
+*   [TASK] Run CI against TYPO3 13.4 and 14.3 with PHP 8.2 to 8.5
+
 Version 4.3.2
 =============
 

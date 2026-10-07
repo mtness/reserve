@@ -13,7 +13,9 @@ namespace JWeiland\Reserve\Backend\Preview;
 
 use TYPO3\CMS\Backend\Preview\StandardContentPreviewRenderer;
 use TYPO3\CMS\Backend\View\BackendLayout\Grid\GridColumnItem;
+use TYPO3\CMS\Core\Configuration\FlexForm\FlexFormTools;
 use TYPO3\CMS\Core\Service\FlexFormService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\View\ViewFactoryData;
 use TYPO3\CMS\Core\View\ViewFactoryInterface;
 use TYPO3\CMS\Core\View\ViewInterface;
@@ -31,7 +33,6 @@ class ReservePluginPreview extends StandardContentPreviewRenderer
     ];
 
     public function __construct(
-        private readonly FlexFormService $flexFormService,
         private readonly ViewFactoryInterface $viewFactory,
     ) {}
 
@@ -97,10 +98,23 @@ class ReservePluginPreview extends StandardContentPreviewRenderer
     {
         $data = [];
         if (!empty($ttContentRecord['pi_flexform']) && is_string($ttContentRecord['pi_flexform'])) {
-            $data = $this->flexFormService->convertFlexFormContentToArray($ttContentRecord['pi_flexform']);
+            $data = $this->getFlexFormConverter()->convertFlexFormContentToArray($ttContentRecord['pi_flexform']);
         }
 
         return $data;
+    }
+
+    /**
+     * TYPO3 v14 merged FlexFormService into FlexFormTools. FlexFormService is just a class alias there,
+     * which can't be autowired. So we have to fetch the converter on our own.
+     */
+    private function getFlexFormConverter(): FlexFormService|FlexFormTools
+    {
+        if (method_exists(FlexFormTools::class, 'convertFlexFormContentToArray')) {
+            return GeneralUtility::makeInstance(FlexFormTools::class);
+        }
+
+        return GeneralUtility::makeInstance(FlexFormService::class);
     }
 
     private function translate(string $translationKey): string

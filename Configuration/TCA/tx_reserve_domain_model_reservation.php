@@ -116,6 +116,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_reservation.first_name',
             'config' => [
                 'type' => 'input',
+                'searchable' => false,
                 'size' => 50,
                 'eval' => 'trim',
                 'required' => true,
@@ -125,6 +126,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_reservation.last_name',
             'config' => [
                 'type' => 'input',
+                'searchable' => false,
                 'size' => 50,
                 'eval' => 'trim',
             ],

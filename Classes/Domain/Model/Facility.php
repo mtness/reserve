@@ -24,9 +24,8 @@ class Facility extends AbstractEntity
 
     /**
      * @var ObjectStorage<Period>
-     *
-     * @Extbase\ORM\Lazy
      */
+    #[Extbase\ORM\Lazy]
     protected ObjectStorage $periods;
 
     protected string $confirmationMailSubject = '';
@@ -55,9 +54,8 @@ class Facility extends AbstractEntity
 
     /**
      * @var ObjectStorage<FileReference>
-     *
-     * @Extbase\ORM\Lazy
      */
+    #[Extbase\ORM\Lazy]
     protected ObjectStorage $qrCodeLogo;
 
     protected int $qrCodeLogoWidth = 0;

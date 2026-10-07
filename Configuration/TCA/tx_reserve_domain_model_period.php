@@ -121,6 +121,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period.booking_begin',
             'config' => [
                 'type' => 'datetime',
+                'searchable' => false,
                 'format' => 'datetime',
                 'size' => 30,
                 'required' => true,
@@ -130,6 +131,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period.booking_end',
             'config' => [
                 'type' => 'datetime',
+                'searchable' => false,
                 'format' => 'datetime',
                 'size' => 30,
             ],
@@ -138,6 +140,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period.date',
             'config' => [
                 'type' => 'datetime',
+                'searchable' => false,
                 'format' => 'date',
                 'size' => 30,
                 'required' => true,
@@ -147,6 +150,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period.begin',
             'config' => [
                 'type' => 'datetime',
+                'searchable' => false,
                 'format' => 'time',
                 'size' => 30,
                 'required' => true,
@@ -156,6 +160,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period.end',
             'config' => [
                 'type' => 'datetime',
+                'searchable' => false,
                 'size' => 30,
                 'format' => 'time',
             ],
@@ -164,6 +169,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period.max_participants',
             'config' => [
                 'type' => 'input',
+                'searchable' => false,
                 'size' => 30,
                 'eval' => 'num',
                 'required' => true,
@@ -176,6 +182,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period.max_participants_per_order',
             'config' => [
                 'type' => 'input',
+                'searchable' => false,
                 'size' => 30,
                 'eval' => 'num',
                 'required' => true,

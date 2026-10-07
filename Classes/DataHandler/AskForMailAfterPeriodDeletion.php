@@ -133,8 +133,8 @@ class AskForMailAfterPeriodDeletion implements SingletonInterface
         $this->getBackendUserAuthentication()->setAndSaveSessionData(
             PageRendererHook::MODAL_SESSION_KEY,
             [
-                'requireJsModules' => [
-                    'TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule' => null,
+                'javaScriptModules' => [
+                    PageRendererHook::MODAL_JAVASCRIPT_MODULE,
                 ],
                 'inlineSettings' => [
                     'reserve.showModal' => [

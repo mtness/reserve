@@ -145,6 +145,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.from_name',
             'config' => [
                 'type' => 'input',
+                'searchable' => false,
                 'size' => 50,
                 'eval' => 'trim',
             ],
@@ -153,6 +154,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.from_email',
             'config' => [
                 'type' => 'email',
+                'searchable' => false,
                 'size' => 50,
             ],
         ],
@@ -160,6 +162,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.reply_to_name',
             'config' => [
                 'type' => 'input',
+                'searchable' => false,
                 'size' => 50,
                 'eval' => 'trim',
             ],
@@ -168,6 +171,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.reply_to_email',
             'config' => [
                 'type' => 'email',
+                'searchable' => false,
                 'size' => 50,
             ],
         ],
@@ -175,6 +179,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.confirmation_mail_subject',
             'config' => [
                 'type' => 'input',
+                'searchable' => false,
                 'eval' => 'trim',
                 'required' => true,
                 'default' => 'Please confirm your reservation',
@@ -184,6 +189,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.confirmation_mail_html',
             'config' => [
                 'type' => 'text',
+                'searchable' => false,
                 'cols' => 40,
                 'rows' => 15,
                 'enableRichtext' => true,
@@ -206,6 +212,7 @@ DEFAULT_CONFIRMATION
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.reservation_mail_subject',
             'config' => [
                 'type' => 'input',
+                'searchable' => false,
                 'eval' => 'trim',
                 'required' => true,
                 'default' => 'Details of your reservation',
@@ -215,6 +222,7 @@ DEFAULT_CONFIRMATION
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.reservation_mail_html',
             'config' => [
                 'type' => 'text',
+                'searchable' => false,
                 'cols' => 40,
                 'rows' => 15,
                 'enableRichtext' => true,

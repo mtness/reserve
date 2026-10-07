@@ -123,6 +123,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.body',
             'config' => [
                 'type' => 'text',
+                'searchable' => false,
                 'cols' => 40,
                 'rows' => 15,
                 'softref' => 'typolink_tag,email[subst],url',
@@ -156,6 +157,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.from_name',
             'config' => [
                 'type' => 'input',
+                'searchable' => false,
                 'size' => 50,
                 'eval' => 'trim',
             ],
@@ -164,6 +166,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.from_email',
             'config' => [
                 'type' => 'email',
+                'searchable' => false,
                 'size' => 50,
             ],
         ],
@@ -171,6 +174,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.reply_to_name',
             'config' => [
                 'type' => 'input',
+                'searchable' => false,
                 'size' => 50,
                 'eval' => 'trim',
             ],
@@ -179,6 +183,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.reply_to_email',
             'config' => [
                 'type' => 'email',
+                'searchable' => false,
                 'size' => 50,
             ],
         ],
@@ -186,6 +191,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.custom_receivers',
             'config' => [
                 'type' => 'text',
+                'searchable' => false,
                 'cols' => 40,
                 'rows' => 15,
                 'required' => true,

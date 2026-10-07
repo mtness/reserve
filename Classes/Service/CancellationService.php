@@ -22,7 +22,6 @@ use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
  * Service to cancel an order
@@ -54,18 +53,13 @@ class CancellationService implements SingletonInterface
         bool $sendMailToCustomer = true,
     ): void {
         if ($sendMailToCustomer) {
-            $view = $this->getStandaloneView();
-
-            $this->fluidService->configureStandaloneViewForMailing($view);
-
-            $view->assignMultiple(['order' => $order, 'reason' => $reason]);
-            $view->assignMultiple($vars);
-            $view->setTemplate('Cancellation');
-
             $this->mailService->sendMailToCustomer(
                 $order,
                 LocalizationUtility::translate('mail.cancellation.subject', 'reserve'),
-                $view->render(),
+                $this->fluidService->renderMailTemplate(
+                    'Cancellation',
+                    array_merge(['order' => $order, 'reason' => $reason], $vars),
+                ),
                 $extensionSettings,
                 function (array $data, string $subject, string $bodyHtml, MailMessage $mailMessage) {
                     foreach ($data['order']->getReservations() as $reservation) {
@@ -88,11 +82,6 @@ class CancellationService implements SingletonInterface
             $order->getBookedPeriod()->getFacility()->getUid(),
             $request,
         );
-    }
-
-    public function getStandaloneView(): StandaloneView
-    {
-        return GeneralUtility::makeInstance(StandaloneView::class);
     }
 
     protected function getMailService(): MailService

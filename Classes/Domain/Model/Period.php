@@ -49,9 +49,8 @@ class Period extends AbstractEntity
 
     /**
      * @var ObjectStorage<Order>
-     *
-     * @Extbase\ORM\Lazy
      */
+    #[Extbase\ORM\Lazy]
     protected ObjectStorage $orders;
 
     /**

@@ -140,6 +140,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_order.first_name',
             'config' => [
                 'type' => 'input',
+                'searchable' => false,
                 'size' => 50,
                 'required' => true,
             ],
@@ -148,6 +149,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_order.last_name',
             'config' => [
                 'type' => 'input',
+                'searchable' => false,
                 'size' => 50,
             ],
         ],
@@ -163,6 +165,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_order.phone',
             'config' => [
                 'type' => 'input',
+                'searchable' => false,
                 'size' => 50,
             ],
         ],
@@ -170,6 +173,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_order.address',
             'config' => [
                 'type' => 'input',
+                'searchable' => false,
                 'size' => 50,
             ],
         ],
@@ -177,6 +181,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_order.zip',
             'config' => [
                 'type' => 'input',
+                'searchable' => false,
                 'size' => 50,
             ],
         ],
@@ -184,6 +189,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_order.city',
             'config' => [
                 'type' => 'input',
+                'searchable' => false,
                 'size' => 50,
             ],
         ],
@@ -191,6 +197,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_order.organization',
             'config' => [
                 'type' => 'input',
+                'searchable' => false,
                 'size' => 100,
                 'default' => '',
                 'eval' => 'trim',
@@ -200,6 +207,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_order.remarks',
             'config' => [
                 'type' => 'text',
+                'searchable' => false,
                 'cols' => 50,
                 'rows' => 3,
                 'default' => '',

@@ -201,12 +201,19 @@ Options:
             - 15    maintained until 2027-11-11
             - 16    maintained until 2028-11-09
 
-    -p <8.1|8.2|8.3|8.4>
+    -p <8.2|8.3|8.4|8.5>
         Specifies the PHP minor version to be used
-            - 8.1: use PHP 8.1
-            - 8.2: use PHP 8.2
+            - 8.2: use PHP 8.2 (default)
             - 8.3: use PHP 8.3
             - 8.4: use PHP 8.4
+            - 8.5: use PHP 8.5 (TYPO3 14.3 only)
+
+    -t <13.4|14.3>
+        Only with -s composerUpdate
+        Specifies the TYPO3 version the testing system is installed with. Without this option the
+        constraint of composer.json is used.
+            - 13.4: install TYPO3 13.4 LTS
+            - 14.3: install TYPO3 14.3 LTS
 
     -x
         Only with -s functional|unit
@@ -254,7 +261,8 @@ TEST_SUITE="cgl"
 DATABASE_DRIVER=""
 DBMS="sqlite"
 DBMS_VERSION=""
-PHP_VERSION="8.1"
+PHP_VERSION="8.2"
+TYPO3_VERSION=""
 PHP_XDEBUG_ON=0
 PHP_XDEBUG_PORT=9003
 CGLCHECK_DRY_RUN=0
@@ -269,7 +277,7 @@ OPTIND=1
 # Array for invalid options
 INVALID_OPTIONS=()
 # Simple option parsing based on getopts (! not getopt)
-while getopts "a:b:d:i:s:p:xy:nhu" OPT; do
+while getopts "a:b:d:i:s:p:t:xy:nhu" OPT; do
     case ${OPT} in
         a)
             DATABASE_DRIVER=${OPTARG}
@@ -291,8 +299,14 @@ while getopts "a:b:d:i:s:p:xy:nhu" OPT; do
             ;;
         p)
             PHP_VERSION=${OPTARG}
-            if ! [[ ${PHP_VERSION} =~ ^(8.1|8.2|8.3|8.4)$ ]]; then
+            if ! [[ ${PHP_VERSION} =~ ^(8.2|8.3|8.4|8.5)$ ]]; then
                 INVALID_OPTIONS+=("p ${OPTARG}")
+            fi
+            ;;
+        t)
+            TYPO3_VERSION=${OPTARG}
+            if ! [[ ${TYPO3_VERSION} =~ ^(13.4|14.3)$ ]]; then
+                INVALID_OPTIONS+=("t ${OPTARG}")
             fi
             ;;
         x)
@@ -449,6 +463,17 @@ case ${TEST_SUITE} in
             cp ${ROOT_DIR}/composer.json ${ROOT_DIR}/composer.json.orig
         fi
         COMMAND=(composer require --no-ansi --no-interaction --no-progress)
+        if [ -n "${TYPO3_VERSION}" ]; then
+            COMMAND+=(
+                --update-with-all-dependencies
+                "typo3/cms-core:^${TYPO3_VERSION}"
+                "typo3/cms-backend:^${TYPO3_VERSION}"
+                "typo3/cms-extbase:^${TYPO3_VERSION}"
+                "typo3/cms-fluid:^${TYPO3_VERSION}"
+                "typo3/cms-frontend:^${TYPO3_VERSION}"
+                "typo3/cms-install:^${TYPO3_VERSION}"
+            )
+        fi
         ${CONTAINER_BIN} run ${CONTAINER_COMMON_PARAMS} --name composer-install-${SUFFIX} -e COMPOSER_CACHE_DIR=.Build/.cache/composer -e COMPOSER_ROOT_VERSION=${COMPOSER_ROOT_VERSION} ${IMAGE_PHP} "${COMMAND[@]}"
         SUITE_EXIT_CODE=$?
         cp ${ROOT_DIR}/composer.json ${ROOT_DIR}/composer.json.testing
