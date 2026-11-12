@@ -148,6 +148,57 @@ class PeriodTest extends UnitTestCase
     }
 
     #[Test]
+    public function getBeginWithConsistentDateTimeHandlingReturnsSecondsSinceMidnight(): void
+    {
+        $featuresBackup = $GLOBALS['TYPO3_CONF_VARS']['SYS']['features'] ?? [];
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['features']['extbase.consistentDateTimeHandling'] = true;
+
+        try {
+            // Extbase with extbase.consistentDateTimeHandling maps 66600 (18:30)
+            // to 1970-01-01 18:30 in PHP localtime
+            $this->subject->setBegin(new \DateTime('1970-01-01 18:30:00', new \DateTimeZone('Europe/Berlin')));
+
+            self::assertSame(66600, $this->subject->getBegin()->getTimestamp());
+            self::assertSame('18:30', $this->subject->getBegin()->format('H:i'));
+        } finally {
+            $GLOBALS['TYPO3_CONF_VARS']['SYS']['features'] = $featuresBackup;
+        }
+    }
+
+    #[Test]
+    public function getEndWithConsistentDateTimeHandlingReturnsSecondsSinceMidnight(): void
+    {
+        $featuresBackup = $GLOBALS['TYPO3_CONF_VARS']['SYS']['features'] ?? [];
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['features']['extbase.consistentDateTimeHandling'] = true;
+
+        try {
+            $this->subject->setEnd(new \DateTime('1970-01-01 20:15:00', new \DateTimeZone('Europe/Berlin')));
+
+            self::assertSame(72900, $this->subject->getEnd()->getTimestamp());
+            self::assertSame('20:15', $this->subject->getEnd()->format('H:i'));
+        } finally {
+            $GLOBALS['TYPO3_CONF_VARS']['SYS']['features'] = $featuresBackup;
+        }
+    }
+
+    #[Test]
+    public function getBeginWithoutConsistentDateTimeHandlingKeepsTheInstant(): void
+    {
+        $featuresBackup = $GLOBALS['TYPO3_CONF_VARS']['SYS']['features'] ?? [];
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['features']['extbase.consistentDateTimeHandling'] = false;
+
+        try {
+            // Legacy Extbase maps 66600 (18:30 UTC) to its local wall clock 19:30 Europe/Berlin
+            $this->subject->setBegin(new \DateTime('1970-01-01 19:30:00', new \DateTimeZone('Europe/Berlin')));
+
+            self::assertSame(66600, $this->subject->getBegin()->getTimestamp());
+            self::assertSame('18:30', $this->subject->getBegin()->format('H:i'));
+        } finally {
+            $GLOBALS['TYPO3_CONF_VARS']['SYS']['features'] = $featuresBackup;
+        }
+    }
+
+    #[Test]
     public function getMaxParticipantsInitiallyReturnsZero(): void
     {
         self::assertSame(

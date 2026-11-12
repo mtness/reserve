@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Domain\Model;
 
+use TYPO3\CMS\Core\Configuration\Features;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -120,9 +121,7 @@ class Period extends AbstractEntity
 
     public function getBegin(): ?\DateTime
     {
-        if ($this->begin instanceof \DateTime && $this->begin->getTimezone()->getName() !== 'UTC') {
-            $this->begin->setTimezone(new \DateTimeZone('UTC'));
-        }
+        $this->begin = $this->normalizeTimeToUtc($this->begin);
 
         return $this->begin;
     }
@@ -134,11 +133,34 @@ class Period extends AbstractEntity
 
     public function getEnd(): ?\DateTime
     {
-        if ($this->end instanceof \DateTime && $this->end->getTimezone()->getName() !== 'UTC') {
-            $this->end->setTimezone(new \DateTimeZone('UTC'));
-        }
+        $this->end = $this->normalizeTimeToUtc($this->end);
 
         return $this->end;
+    }
+
+    /**
+     * begin/end are stored as seconds since midnight. Extbase maps them to DateTime
+     * objects differently depending on feature "extbase.consistentDateTimeHandling":
+     * enabled (default since TYPO3 v14): the wall clock is UTC, but the object is in
+     * PHP localtime → re-create the object with the same wall clock in UTC.
+     * disabled (default on TYPO3 v13): the instant is correct, but the object shows
+     * the local wall clock → convert to UTC, keeping the instant.
+     * Either way the contract is: format('H:i') is the stored time and
+     * getTimestamp() is the number of seconds since midnight.
+     */
+    private function normalizeTimeToUtc(?\DateTime $time): ?\DateTime
+    {
+        if (!$time instanceof \DateTime || $time->getTimezone()->getName() === 'UTC') {
+            return $time;
+        }
+
+        if (GeneralUtility::makeInstance(Features::class)->isFeatureEnabled('extbase.consistentDateTimeHandling')) {
+            return new \DateTime($time->format('Y-m-d H:i:s'), new \DateTimeZone('UTC'));
+        }
+
+        $time->setTimezone(new \DateTimeZone('UTC'));
+
+        return $time;
     }
 
     public function setEnd(\DateTime $end): void
